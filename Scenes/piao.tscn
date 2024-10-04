@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0wcpc4n0ljim"]
+
+[ext_resource type="Script" path="res://Scripts/piao.gd" id="1_uqhqe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdwe7"]
+diffuse_mode = 3
+albedo_color = Color(1, 0.0588235, 0.270588, 1)
+roughness = 0.0
+rim = 0.35
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_klg6k"]
+material = SubResource("StandardMaterial3D_hdwe7")
+top_radius = 1.2
+bottom_radius = 0.2
+height = 1.0
+radial_segments = 8
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6lvs3"]
+radius = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_afbao"]
+radius = 1.1
+
+[node name="Piao" type="CharacterBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_uqhqe")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_klg6k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_6lvs3")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.863184, 0.504889, 0, -0.504889, 0.863184, 0, 1.24328, 0)
+pixel_size = 0.01
+text = "Player N"
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_afbao")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
