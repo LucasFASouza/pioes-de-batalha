@@ -48,6 +48,7 @@ shape = SubResource("BoxShape3D_sxka1")
 metadata/_edit_group_ = true
 
 [node name="FloorCollision" type="CollisionShape3D" parent="Stadium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000451088, 0.0313168, -0.0191498)
 shape = SubResource("CylinderShape3D_usxev")
 
 [node name="FloorMesh" type="MeshInstance3D" parent="Stadium"]
