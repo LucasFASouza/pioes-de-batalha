@@ -1,16 +1,16 @@
 extends CharacterBody3D
 
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@onready var gfx: Node3D = $GFX
 
-@export var max_speed = 20.0
-@export var spin_speed = -720.0
+@export var max_speed := 20.0
+@export var spin_speed := -720.0
 
-@export var friction = 0.01
+@export var friction := 0.01
 
-@export var bounce_factor = 1
-@export var min_bounce_strength = 3.5
+@export var bounce_factor := 1.0
+@export var min_bounce_strength := 3.0
 
-@export var player_number = "1"
+@export var player_number := "1"
 @onready var label_3d: Label3D = $Label3D
 
 func _ready() -> void:
@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	mesh_instance_3d.rotate_y(deg_to_rad(spin_speed * delta))
+	gfx.rotate_y(deg_to_rad(spin_speed * delta))
 
 	var input_dir := Input.get_vector(
 		"left_" + player_number,

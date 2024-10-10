@@ -1,15 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://2vqcvfh7orwt"]
+[gd_scene load_steps=10 format=3 uid="uid://2vqcvfh7orwt"]
 
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_bl4i6"]
 [ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="1_rnlff"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_sxka1"]
+size = Vector3(80, 5, 80)
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_usxev"]
-radius = 9.0
+radius = 8.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iv7u"]
-diffuse_mode = 3
-specular_mode = 1
 albedo_color = Color(0.2, 0.211765, 0.211765, 1)
-roughness = 0.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_xc2o3"]
 material = SubResource("StandardMaterial3D_4iv7u")
@@ -27,12 +28,21 @@ sky_material = SubResource("ProceduralSkyMaterial_nt5fr")
 
 [sub_resource type="Environment" id="Environment_gb6jl"]
 background_mode = 1
-background_color = Color(0.195608, 0.656884, 0.519376, 1)
+background_color = Color(0.320157, 0.645432, 0.474079, 1)
 sky = SubResource("Sky_kknsv")
 ambient_light_source = 1
 ssao_enabled = true
 
 [node name="Battle" type="Node3D"]
+
+[node name="GameManager" type="Node3D" parent="."]
+script = ExtResource("1_bl4i6")
+
+[node name="Area3D" type="Area3D" parent="GameManager"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GameManager/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.02221, 0)
+shape = SubResource("BoxShape3D_sxka1")
 
 [node name="Stadium" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
@@ -54,10 +64,10 @@ transform = Transform3D(1, 0, 0, 0, 0.882947, 0.469471, 0, -0.469471, 0.882947, 
 fov = 35.5
 
 [node name="Player 1" parent="." instance=ExtResource("1_rnlff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.90506, 0)
 
 [node name="Player 2" parent="." instance=ExtResource("1_rnlff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.90506, 0)
 player_number = "2"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -68,3 +78,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9765, 3.61053, 9.05125)
 light_energy = 0.2
 omni_range = 23.323
 omni_attenuation = 0.1
+
+[connection signal="body_entered" from="GameManager/Area3D" to="GameManager" method="_on_area_3d_body_entered"]
