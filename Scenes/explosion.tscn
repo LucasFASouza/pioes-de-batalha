@@ -1,18 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwy5verpybhah"]
+[gd_scene load_steps=8 format=3 uid="uid://cwy5verpybhah"]
 
 [ext_resource type="Script" path="res://Scripts/explosion.gd" id="1_gxw2k"]
 [ext_resource type="AudioStream" uid="uid://cjg74rnwf23dr" path="res://Assets/hit.wav" id="2_edjo3"]
 
-[sub_resource type="Gradient" id="Gradient_colorful"]
-offsets = PackedFloat32Array(0, 0, 0, 1)
-colors = PackedColorArray(1, 1, 0.8, 1, 1, 0.3, 0, 1, 0.8, 0.1, 0, 0, 1, 0.6, 0.2, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_colorful"]
-gradient = SubResource("Gradient_colorful")
-
 [sub_resource type="Curve" id="Curve_rdmk7"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.728707, 0.991844), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.337539, 1), 0.0, 0.0, 0, 0, Vector2(0.772871, 0.584065), -2.58532, -2.58532, 0, 0, Vector2(0.955836, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_v0j2i"]
 curve = SubResource("Curve_rdmk7")
@@ -20,34 +13,31 @@ curve = SubResource("Curve_rdmk7")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2g367"]
 particle_flag_align_y = true
 spread = 180.0
-initial_velocity_min = 7.0
-initial_velocity_max = 8.0
-scale_min = 0.2
-scale_max = 0.6
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+scale_max = 1.8
 scale_curve = SubResource("CurveTexture_v0j2i")
-color = Color(1, 0.9, 0.3, 1)
-color_ramp = SubResource("GradientTexture1D_colorful")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gtug"]
+vertex_color_use_as_albedo = true
 albedo_color = Color(0.997561, 0.5449, 0, 1)
 emission_enabled = true
 emission = Color(0.996078, 0.545098, 0, 1)
-emission_energy_multiplier = 2.5
+emission_energy_multiplier = 2.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_em56x"]
 material = SubResource("StandardMaterial3D_1gtug")
-top_radius = 0.1
+top_radius = 0.15
 bottom_radius = 0.0
-height = 1.0
+height = 1.6
 
 [node name="Explosion" type="Node3D"]
 script = ExtResource("1_gxw2k")
 
 [node name="Debris" type="GPUParticles3D" parent="."]
-emitting = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.03862, 0)
 amount = 16
-lifetime = 0.25
-one_shot = true
+lifetime = 0.5
 explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_2g367")

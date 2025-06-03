@@ -1,21 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://2vqcvfh7orwt"]
+[gd_scene load_steps=9 format=3 uid="uid://2vqcvfh7orwt"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_bl4i6"]
 [ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="1_rnlff"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_sxka1"]
-size = Vector3(80, 5, 80)
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_usxev"]
-radius = 8.5
+radius = 39.7307
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iv7u"]
 albedo_color = Color(0.2, 0.211765, 0.211765, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_xc2o3"]
 material = SubResource("StandardMaterial3D_4iv7u")
-top_radius = 9.0
-bottom_radius = 8.0
+top_radius = 40.0
+bottom_radius = 39.0
+height = 5.0
 radial_segments = 16
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nt5fr"]
@@ -38,16 +36,10 @@ ssao_enabled = true
 [node name="GameManager" type="Node3D" parent="."]
 script = ExtResource("1_bl4i6")
 
-[node name="Area3D" type="Area3D" parent="GameManager"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GameManager/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.02221, 0)
-shape = SubResource("BoxShape3D_sxka1")
-
 [node name="WinnerLabel" type="Label3D" parent="GameManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.005, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.615, 38.385)
 visible = false
-pixel_size = 0.05
+pixel_size = 0.25
 text = "Jogador N Venceu! :)"
 
 [node name="Stadium" type="StaticBody3D" parent="."]
@@ -68,19 +60,9 @@ shadow_blur = 8.144
 sky_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.882948, 0.469471, 0, -0.469471, 0.882948, 0, 10, 17.458)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 55.79, 89.67)
 projection = 1
-fov = 35.5
-size = 11.031
-near = 0.001
-far = 35.0
-
-[node name="Player 1" parent="." instance=ExtResource("1_rnlff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25328, 2.90506, 0)
-
-[node name="Player 2" parent="." instance=ExtResource("1_rnlff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.84164, 2.71019, 0)
-player_number = "2"
+size = 52.783
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gb6jl")
@@ -91,4 +73,13 @@ light_energy = 0.2
 omni_range = 23.323
 omni_attenuation = 0.1
 
-[connection signal="body_entered" from="GameManager/Area3D" to="GameManager" method="_on_area_3d_body_entered"]
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Player 1" parent="Players" instance=ExtResource("1_rnlff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2.6, 0)
+max_speed = 50.0
+
+[node name="Player 2" parent="Players" instance=ExtResource("1_rnlff")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 2.6, 0)
+max_speed = 50.0
+player_number = "2"

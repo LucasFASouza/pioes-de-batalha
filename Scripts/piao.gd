@@ -2,13 +2,13 @@ extends CharacterBody3D
 
 @onready var gfx: Node3D = $GFX
 
-@export var max_speed := 20.0
+@export var max_speed := 30.0
 @export var spin_speed := -720.0
 
-@export var friction := 0.01
+@export var friction := 0.03
 
-@export var bounce_factor := 1.0
-@export var min_bounce_strength := 3.0
+@export var bounce_factor := 2
+@export var min_bounce_strength := 20
 
 @export var player_number := "1"
 @onready var label_3d: Label3D = $Label3D
@@ -20,6 +20,7 @@ const EXPLOSION_SCENE = preload("res://Scenes/explosion.tscn")
 
 func _ready() -> void:
 	label_3d.text = "Player " + player_number
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -46,9 +47,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body is CharacterBody3D and body != self:
-		print(self.name + " collided with " + body.name)
-		
+	if body is CharacterBody3D and body != self and collision_stun_time <= 0:		
 		var collision_direction = (global_transform.origin - body.global_transform.origin).normalized()
 		
 		var my_speed = velocity.length()
@@ -56,8 +55,10 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		
 		var total_speed = my_speed + other_speed
 		var push_force = max(total_speed * bounce_factor, min_bounce_strength)
+
+		print("\n" + self.name + " collided with " + body.name + " with a force of " + str(push_force))
 		
-		var collision_point = (global_transform.origin + body.global_transform.origin) * 0.5
+		var collision_point = (global_transform.origin + body.global_transform.origin)
 		
 		var explosion = EXPLOSION_SCENE.instantiate()
 		get_tree().current_scene.add_child(explosion)
@@ -65,9 +66,11 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		explosion.explode(push_force)
 		
 		if total_speed > 0.1:
-			
 			var my_knockback_multiplier = other_speed / total_speed
 			var other_knockback_multiplier = my_speed / total_speed
+
+			print(self.name + " speed: " + str(my_speed) + " | knockback multiplier: " + str(my_knockback_multiplier))
+			print(body.name + " speed: " + str(other_speed) + " | knockback multiplier: " + str(other_knockback_multiplier))
 
 			velocity += collision_direction * push_force * my_knockback_multiplier
 			body.velocity -= collision_direction * push_force * other_knockback_multiplier

@@ -6,41 +6,41 @@
 [ext_resource type="ArrayMesh" uid="uid://bagidm5fs2mlm" path="res://Assets/pieces/blade_1.res" id="4_ej6r1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6lvs3"]
-radius = 1.0
+radius = 2.49
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_afbao"]
-radius = 1.1
+[sub_resource type="SphereShape3D" id="SphereShape3D_fes5v"]
+radius = 6.0
 
 [node name="Piao" type="CharacterBody3D"]
 script = ExtResource("1_uqhqe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.52933, 0)
 shape = SubResource("SphereShape3D_6lvs3")
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.863184, 0.504889, 0, -0.504889, 0.863184, 0, 1.24328, 0)
-pixel_size = 0.01
+transform = Transform3D(1, 0, 0, 0, 0.863184, 0.504889, 0, -0.504889, 0.863184, 0, 7.87063, 0)
+pixel_size = 0.05
 text = "Player N"
 
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_afbao")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.16773, 0)
+shape = SubResource("SphereShape3D_fes5v")
 
 [node name="GFX" type="Node3D" parent="."]
 
 [node name="Tip" type="MeshInstance3D" parent="GFX"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.285144, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = ExtResource("2_yku7g")
 
 [node name="Body" type="MeshInstance3D" parent="GFX"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.285544, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
 mesh = ExtResource("3_4fq61")
 
 [node name="Blade" type="MeshInstance3D" parent="GFX"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.289509, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0859, 0)
 mesh = ExtResource("4_ej6r1")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
