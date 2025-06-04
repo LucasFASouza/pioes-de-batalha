@@ -12,7 +12,7 @@ albedo_color = Color(0.2, 0.211765, 0.211765, 1)
 [sub_resource type="CylinderMesh" id="CylinderMesh_xc2o3"]
 material = SubResource("StandardMaterial3D_4iv7u")
 top_radius = 40.0
-bottom_radius = 39.0
+bottom_radius = 40.0
 height = 5.0
 radial_segments = 16
 
@@ -36,11 +36,75 @@ ssao_enabled = true
 [node name="GameManager" type="Node3D" parent="."]
 script = ExtResource("1_bl4i6")
 
-[node name="WinnerLabel" type="Label3D" parent="GameManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.615, 38.385)
+[node name="PlayersCanvas" type="Control" parent="GameManager"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Player1Canvas" type="CanvasLayer" parent="GameManager/PlayersCanvas"]
+
+[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player1Canvas"]
+offset_left = 13.0
+offset_top = 538.0
+offset_right = 86.0
+offset_bottom = 561.0
+scale = Vector2(2.2, 2.2)
+text = "Shield: 7s"
+
+[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player1Canvas"]
+offset_left = 13.0
+offset_top = 490.0
+offset_right = 86.0
+offset_bottom = 513.0
+scale = Vector2(2.2, 2.2)
+text = "Stamina: 100"
+
+[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player1Canvas"]
+offset_left = 15.0
+offset_top = 578.0
+offset_right = 80.0
+offset_bottom = 601.0
+scale = Vector2(2.12186, 2.12186)
+text = "Dash: 5s"
+
+[node name="Player2Canvas" type="CanvasLayer" parent="GameManager/PlayersCanvas"]
+
+[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player2Canvas"]
+offset_left = 785.0
+offset_top = 538.0
+offset_right = 858.0
+offset_bottom = 561.0
+scale = Vector2(2.2, 2.2)
+text = "Shield: 7s"
+
+[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player2Canvas"]
+offset_left = 785.0
+offset_top = 490.0
+offset_right = 885.0
+offset_bottom = 513.0
+scale = Vector2(2.2, 2.2)
+text = "Stamina: 100"
+
+[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player2Canvas"]
+offset_left = 787.0
+offset_top = 578.0
+offset_right = 852.0
+offset_bottom = 601.0
+scale = Vector2(2.12186, 2.12186)
+text = "Dash: 5s"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GameManager"]
+
+[node name="WinnerLabel" type="Label" parent="GameManager/CanvasLayer"]
 visible = false
-pixel_size = 0.25
-text = "Jogador N Venceu! :)"
+offset_left = 196.0
+offset_top = 60.0
+offset_right = 550.0
+offset_bottom = 110.0
+scale = Vector2(2.08, 2.08)
+theme_override_font_sizes/font_size = 36
+text = "JOGADOR N VENCEU"
 
 [node name="Stadium" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
@@ -76,10 +140,11 @@ omni_attenuation = 0.1
 [node name="Players" type="Node3D" parent="."]
 
 [node name="Player 1" parent="Players" instance=ExtResource("1_rnlff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2.6, -18)
 max_speed = 50.0
 
 [node name="Player 2" parent="Players" instance=ExtResource("1_rnlff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 2.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2.6, 18)
 max_speed = 50.0
 player_number = "2"
+is_ai_controlled = true

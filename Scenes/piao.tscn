@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0wcpc4n0ljim"]
+[gd_scene load_steps=8 format=3 uid="uid://b0wcpc4n0ljim"]
 
 [ext_resource type="Script" path="res://Scripts/piao.gd" id="1_uqhqe"]
 [ext_resource type="ArrayMesh" uid="uid://bjm8d5qxl33f" path="res://Assets/pieces/tip_1.res" id="2_yku7g"]
@@ -8,15 +8,22 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_6lvs3"]
 radius = 2.49
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pp8ct"]
+radius = 4.19716
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_fes5v"]
-radius = 6.0
+radius = 5.06314
 
 [node name="Piao" type="CharacterBody3D"]
 script = ExtResource("1_uqhqe")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionTip" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.52933, 0)
 shape = SubResource("SphereShape3D_6lvs3")
+
+[node name="CollisionBlade" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.03093, 0)
+shape = SubResource("CylinderShape3D_pp8ct")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.863184, 0.504889, 0, -0.504889, 0.863184, 0, 7.87063, 0)
