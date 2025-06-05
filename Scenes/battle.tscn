@@ -1,31 +1,52 @@
-[gd_scene load_steps=9 format=3 uid="uid://2vqcvfh7orwt"]
+[gd_scene load_steps=14 format=3 uid="uid://2vqcvfh7orwt"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_bl4i6"]
 [ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="1_rnlff"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_usxev"]
-height = 20.0
-radius = 39.0
+[ext_resource type="Texture2D" uid="uid://k4hcvapt2ai6" path="res://Assets/textures/plastic.png" id="2_b5t5x"]
+[ext_resource type="Texture2D" uid="uid://dmbffh6hwct2o" path="res://Assets/textures/capy.png" id="2_bfy8h"]
+[ext_resource type="Texture2D" uid="uid://drm03x7joso11" path="res://Assets/textures/ground2.png" id="3_hnrtb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iv7u"]
-albedo_color = Color(0.2, 0.211765, 0.211765, 1)
+albedo_color = Color(0.905882, 0.235294, 0.247059, 1)
+albedo_texture = ExtResource("2_b5t5x")
+uv1_scale = Vector3(4, 0.5, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_xc2o3"]
+lightmap_size_hint = Vector2i(1258, 554)
 material = SubResource("StandardMaterial3D_4iv7u")
 top_radius = 40.0
 bottom_radius = 40.0
 height = 30.0
 radial_segments = 16
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hmtc"]
+albedo_color = Color(0.442911, 0.442911, 0.442911, 1)
+albedo_texture = ExtResource("2_bfy8h")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0sr7i"]
+material = SubResource("StandardMaterial3D_1hmtc")
+top_radius = 39.0
+bottom_radius = 40.0
+height = 30.0
+radial_segments = 16
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_usxev"]
+height = 20.0
+radius = 39.0
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_w3j7f"]
 size = Vector3(200, 1, 200)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ym2no"]
-albedo_color = Color(0.234137, 0.266452, 0.307496, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mw5a"]
+albedo_color = Color(0.489622, 0.489622, 0.489622, 1)
+albedo_texture = ExtResource("3_hnrtb")
+uv1_scale = Vector3(4, 4, 4)
+grow_amount = 0.065
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_eavg1"]
-material = SubResource("StandardMaterial3D_ym2no")
-size = Vector2(200, 200)
+[sub_resource type="PlaneMesh" id="PlaneMesh_0pidq"]
+material = SubResource("StandardMaterial3D_7mw5a")
+size = Vector2(500, 500)
 
 [node name="Battle" type="Node3D"]
 
@@ -189,21 +210,24 @@ text = "VS. Player 2"
 [node name="Stadium" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
 
+[node name="StadiumMeshBorder" type="MeshInstance3D" parent="Stadium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 0)
+mesh = SubResource("CylinderMesh_xc2o3")
+
+[node name="StadiumMesh" type="MeshInstance3D" parent="Stadium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.99, 0)
+mesh = SubResource("CylinderMesh_0sr7i")
+
 [node name="StadiumCollision" type="CollisionShape3D" parent="Stadium"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 shape = SubResource("CylinderShape3D_usxev")
-
-[node name="StadiumMesh" type="MeshInstance3D" parent="Stadium/StadiumCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-mesh = SubResource("CylinderMesh_xc2o3")
-skeleton = NodePath("../..")
 
 [node name="FloorCollision" type="CollisionShape3D" parent="Stadium"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
 shape = SubResource("BoxShape3D_w3j7f")
 
 [node name="FloorMesh" type="MeshInstance3D" parent="Stadium/FloorCollision"]
-mesh = SubResource("PlaneMesh_eavg1")
+mesh = SubResource("PlaneMesh_0pidq")
 skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -214,8 +238,8 @@ shadow_blur = 8.144
 sky_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 53.125, 89.67)
-projection = 1
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 44.405, 91.11)
+fov = 32.0
 size = 52.783
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]

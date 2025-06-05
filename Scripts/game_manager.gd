@@ -294,6 +294,7 @@ func _on_play_again_pressed() -> void:
 	is_game_over = false
 	player1_score = 0
 	player2_score = 0
+	update_score_display()
 	current_state = GameState.VS_SELECTION
 	
 	# Reset UI
