@@ -8,8 +8,9 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_6lvs3"]
 radius = 2.49
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_pp8ct"]
-radius = 4.19716
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o5vbv"]
+radius = 4.53976
+height = 9.07952
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fes5v"]
 radius = 5.06314
@@ -23,7 +24,7 @@ shape = SubResource("SphereShape3D_6lvs3")
 
 [node name="CollisionBlade" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.03093, 0)
-shape = SubResource("CylinderShape3D_pp8ct")
+shape = SubResource("CapsuleShape3D_o5vbv")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.863184, 0.504889, 0, -0.504889, 0.863184, 0, 7.87063, 0)

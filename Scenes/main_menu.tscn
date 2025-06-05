@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://5w8vqsdk5wng"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_5xu57"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5xu57")
+
+[node name="InitialContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = -64.0
+offset_right = 134.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="InitialContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Piões de Batalha"
+horizontal_alignment = 1
+
+[node name="GameTypeButtons" type="VBoxContainer" parent="InitialContainer"]
+layout_mode = 2
+
+[node name="VsCPUButton" type="Button" parent="InitialContainer/GameTypeButtons"]
+layout_mode = 2
+text = "P1 vs CPU"
+
+[node name="VsP2Button" type="Button" parent="InitialContainer/GameTypeButtons"]
+layout_mode = 2
+text = "P1 vs P2"
+
+[node name="SelectionContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackInitialButton" type="Button" parent="SelectionContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Back"
+
+[node name="P1Container" type="VBoxContainer" parent="SelectionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="SelectionContainer/P1Container"]
+layout_mode = 2
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="P2Container" type="VBoxContainer" parent="SelectionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="SelectionContainer/P2Container"]
+layout_mode = 2
+text = "Player 2"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="InitialContainer/GameTypeButtons/VsCPUButton" to="." method="_on_vs_cpu_button_pressed"]
+[connection signal="pressed" from="SelectionContainer/BackInitialButton" to="." method="_on_back_initial_button_pressed"]

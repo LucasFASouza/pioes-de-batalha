@@ -211,7 +211,7 @@ func set_personality(personality: Personality) -> void:
 	current_state = State.MOVING  # Reset state when personality changes
 
 func get_debug_info() -> String:
-	var personality_names = ["AGGRESSIVE", "DECEIVER", "RUNNER"]
+	var personality_names = ["RUNNER", "AGGRESSIVE", "DECEIVER"]
 	var state_names = ["MOVING", "PREP_DASH", "DASHING", "SHIELDING", "WAITING"]
 	
 	return personality_names[ai_personality] + " | " + state_names[current_state]

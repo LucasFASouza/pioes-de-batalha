@@ -91,10 +91,13 @@ func _physics_process(delta: float) -> void:
 
 	gfx.rotate_y(deg_to_rad(spin_speed * delta))
 
+	var game_manager = get_tree().current_scene.get_node("GameManager")
+	var can_move = game_manager and game_manager.is_game_playing()
+
 	if collision_stun_time > 0:
 		collision_stun_time -= delta
 
-	if collision_stun_time <= 0 and is_on_floor():
+	if collision_stun_time <= 0 and is_on_floor() and can_move:
 		var input_dir := Vector2.ZERO
 		
 		if not is_ai_controlled:
@@ -130,10 +133,6 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	if is_ai_controlled and ai_controller and ai_controller.has_method("get_debug_info"):
 		label_3d.text = "CPU: " + ai_controller.get_debug_info()
-	
-	if is_ai_controlled and ai_controller:
-		if Input.is_action_just_pressed("ui_focus_next"): # Tab key
-			cycle_ai_personality()
 
 
 func start_dash(direction: Vector2) -> void:
@@ -329,8 +328,6 @@ func set_ai_input(direction: Vector2) -> void:
 	ai_input_direction = direction
 
 
-func cycle_ai_personality():
+func set_ai_personality(personality_index: int) -> void:
 	if ai_controller and ai_controller.has_method("set_personality"):
-		var current = ai_controller.ai_personality
-		var next_personality = (current + 1) % 3
-		ai_controller.set_personality(next_personality)
+		ai_controller.set_personality(personality_index)

@@ -4,7 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="1_rnlff"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_usxev"]
-radius = 39.7307
+height = 20.0
+radius = 39.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iv7u"]
 albedo_color = Color(0.2, 0.211765, 0.211765, 1)
@@ -13,108 +14,197 @@ albedo_color = Color(0.2, 0.211765, 0.211765, 1)
 material = SubResource("StandardMaterial3D_4iv7u")
 top_radius = 40.0
 bottom_radius = 40.0
-height = 5.0
+height = 30.0
 radial_segments = 16
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nt5fr"]
-sky_top_color = Color(0.632999, 0.224673, 0.765303, 1)
-sky_horizon_color = Color(0.815686, 0.654902, 0.670588, 1)
-ground_bottom_color = Color(0.339029, 0.572872, 0.578872, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_w3j7f"]
+size = Vector3(200, 1, 200)
 
-[sub_resource type="Sky" id="Sky_kknsv"]
-sky_material = SubResource("ProceduralSkyMaterial_nt5fr")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ym2no"]
+albedo_color = Color(0.234137, 0.266452, 0.307496, 1)
 
-[sub_resource type="Environment" id="Environment_gb6jl"]
-background_mode = 1
-background_color = Color(0.343766, 0.68192, 0.503215, 1)
-sky = SubResource("Sky_kknsv")
-ambient_light_source = 1
-ssao_enabled = true
+[sub_resource type="PlaneMesh" id="PlaneMesh_eavg1"]
+material = SubResource("StandardMaterial3D_ym2no")
+size = Vector2(200, 200)
 
 [node name="Battle" type="Node3D"]
 
 [node name="GameManager" type="Node3D" parent="."]
 script = ExtResource("1_bl4i6")
 
-[node name="PlayersCanvas" type="Control" parent="GameManager"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PlayersCanvas" type="CanvasLayer" parent="GameManager"]
 
-[node name="Player1Canvas" type="CanvasLayer" parent="GameManager/PlayersCanvas"]
+[node name="Player1HUD" type="VBoxContainer" parent="GameManager/PlayersCanvas"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -131.0
+offset_right = 169.0
+offset_bottom = -30.0
+grow_vertical = 0
 
-[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player1Canvas"]
-offset_left = 13.0
-offset_top = 538.0
-offset_right = 86.0
-offset_bottom = 561.0
-scale = Vector2(2.2, 2.2)
-text = "Shield: 7s"
-
-[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player1Canvas"]
-offset_left = 13.0
-offset_top = 490.0
-offset_right = 86.0
-offset_bottom = 513.0
-scale = Vector2(2.2, 2.2)
+[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player1HUD"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "Stamina: 100"
 
-[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player1Canvas"]
-offset_left = 15.0
-offset_top = 578.0
-offset_right = 80.0
-offset_bottom = 601.0
-scale = Vector2(2.12186, 2.12186)
-text = "Dash: 5s"
+[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player1HUD"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Dash: 10"
 
-[node name="Player2Canvas" type="CanvasLayer" parent="GameManager/PlayersCanvas"]
+[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player1HUD"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Shield: 10"
 
-[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player2Canvas"]
-offset_left = 785.0
-offset_top = 538.0
-offset_right = 858.0
-offset_bottom = 561.0
-scale = Vector2(2.2, 2.2)
-text = "Shield: 7s"
+[node name="Player2HUD" type="VBoxContainer" parent="GameManager/PlayersCanvas"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -285.0
+offset_top = -133.0
+offset_right = -148.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
 
-[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player2Canvas"]
-offset_left = 785.0
-offset_top = 490.0
-offset_right = 885.0
-offset_bottom = 513.0
-scale = Vector2(2.2, 2.2)
+[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player2HUD"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "Stamina: 100"
 
-[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player2Canvas"]
-offset_left = 787.0
-offset_top = 578.0
-offset_right = 852.0
-offset_bottom = 601.0
-scale = Vector2(2.12186, 2.12186)
-text = "Dash: 5s"
+[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player2HUD"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Dash: 10"
+
+[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player2HUD"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Shield: 10"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="GameManager"]
 
 [node name="WinnerLabel" type="Label" parent="GameManager/CanvasLayer"]
-visible = false
-offset_left = 196.0
-offset_top = 60.0
-offset_right = 550.0
-offset_bottom = 110.0
-scale = Vector2(2.08, 2.08)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.0
+offset_top = 126.0
+offset_right = 177.0
+offset_bottom = 176.0
+grow_horizontal = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 36
 text = "JOGADOR N VENCEU"
+horizontal_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="GameManager/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_top = 27.0
+offset_right = 35.0
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "0-0"
+
+[node name="Button" type="Button" parent="GameManager/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = -20.0
+offset_right = 81.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 23
+text = "Play Again?"
+
+[node name="CountdownLabel" type="Label" parent="GameManager/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -25.0
+offset_right = 103.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "3 2 1 GO etc"
+horizontal_alignment = 1
+
+[node name="VSSelectionCanvas" type="CanvasLayer" parent="GameManager"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameManager/VSSelectionCanvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 333.0
+offset_top = 250.0
+offset_right = -341.0
+offset_bottom = -215.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Selecione o Modo VS:"
+horizontal_alignment = 1
+
+[node name="VSBasicButton" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VS. Basic CPU"
+
+[node name="VSAggressiveButton" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VS. Agressive CPU"
+
+[node name="VSDeceiverButton" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VS. Deceiver CPU"
+
+[node name="VSP2Button" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VS. Player 2"
 
 [node name="Stadium" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
 
-[node name="FloorCollision" type="CollisionShape3D" parent="Stadium"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000451088, 0.0313168, -0.0191498)
+[node name="StadiumCollision" type="CollisionShape3D" parent="Stadium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 shape = SubResource("CylinderShape3D_usxev")
 
-[node name="FloorMesh" type="MeshInstance3D" parent="Stadium"]
+[node name="StadiumMesh" type="MeshInstance3D" parent="Stadium/StadiumCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 mesh = SubResource("CylinderMesh_xc2o3")
+skeleton = NodePath("../..")
+
+[node name="FloorCollision" type="CollisionShape3D" parent="Stadium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+shape = SubResource("BoxShape3D_w3j7f")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Stadium/FloorCollision"]
+mesh = SubResource("PlaneMesh_eavg1")
+skeleton = NodePath("../..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.365336, 0.872399, -0.324731, -0.544227, 0.483187, 0.685818, 0.755212, -0.0738271, 0.651309, -38.883, 11.315, 21.394)
@@ -124,18 +214,16 @@ shadow_blur = 8.144
 sky_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 55.79, 89.67)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 53.125, 89.67)
 projection = 1
 size = 52.783
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_gb6jl")
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9765, 3.61053, 9.05125)
+light_color = Color(0.813504, 0.849558, 0.783671, 1)
 light_energy = 0.2
-omni_range = 23.323
-omni_attenuation = 0.1
+omni_range = 52.856
+omni_attenuation = -0.451
 
 [node name="Players" type="Node3D" parent="."]
 
@@ -147,4 +235,9 @@ max_speed = 50.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2.6, 18)
 max_speed = 50.0
 player_number = "2"
-is_ai_controlled = true
+
+[connection signal="pressed" from="GameManager/CanvasLayer/Button" to="GameManager" method="_on_play_again_pressed"]
+[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSBasicButton" to="GameManager" method="_on_vs_basic_pressed"]
+[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSAggressiveButton" to="GameManager" method="_on_vs_aggressive_pressed"]
+[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSDeceiverButton" to="GameManager" method="_on_vs_deceiver_pressed"]
+[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSP2Button" to="GameManager" method="_on_vs_p2_pressed"]
