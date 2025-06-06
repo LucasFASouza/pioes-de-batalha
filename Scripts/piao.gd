@@ -237,6 +237,7 @@ func _log_collision_info(body: Node3D, collision_data: Dictionary) -> void:
 
 func _create_collision_explosion(body: Node3D, total_speed: float) -> void:
 	var collision_point = (global_transform.origin + body.global_transform.origin) / 2
+	collision_point.y += 3.0 
 	var explosion = EXPLOSION_SCENE.instantiate()
 	get_tree().current_scene.add_child(explosion)
 	explosion.global_transform.origin = collision_point

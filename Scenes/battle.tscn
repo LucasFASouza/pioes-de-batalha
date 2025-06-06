@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://2vqcvfh7orwt"]
+[gd_scene load_steps=17 format=3 uid="uid://2vqcvfh7orwt"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_bl4i6"]
 [ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="1_rnlff"]
 [ext_resource type="Texture2D" uid="uid://k4hcvapt2ai6" path="res://Assets/textures/plastic.png" id="2_b5t5x"]
-[ext_resource type="Texture2D" uid="uid://dmbffh6hwct2o" path="res://Assets/textures/capy.png" id="2_bfy8h"]
-[ext_resource type="Texture2D" uid="uid://drm03x7joso11" path="res://Assets/textures/ground2.png" id="3_hnrtb"]
+[ext_resource type="Texture2D" uid="uid://drm03x7joso11" path="res://Assets/textures/ground.png" id="3_hnrtb"]
+[ext_resource type="Texture2D" uid="uid://brh8e2erbfn2b" path="res://Assets/textures/IDK.png" id="3_oqeyu"]
+[ext_resource type="Texture2D" uid="uid://e81jyga0eunl" path="res://Assets/textures/cardboard.png" id="5_kqvf8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iv7u"]
 albedo_color = Color(0.905882, 0.235294, 0.247059, 1)
@@ -15,28 +16,25 @@ uv1_scale = Vector3(4, 0.5, 1)
 lightmap_size_hint = Vector2i(1258, 554)
 material = SubResource("StandardMaterial3D_4iv7u")
 top_radius = 40.0
-bottom_radius = 40.0
-height = 30.0
+bottom_radius = 45.0
+height = 10.0
 radial_segments = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hmtc"]
 albedo_color = Color(0.442911, 0.442911, 0.442911, 1)
-albedo_texture = ExtResource("2_bfy8h")
+albedo_texture = ExtResource("3_oqeyu")
 uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0sr7i"]
 material = SubResource("StandardMaterial3D_1hmtc")
 top_radius = 39.0
 bottom_radius = 40.0
-height = 30.0
+height = 10.005
 radial_segments = 16
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_usxev"]
 height = 20.0
 radius = 39.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_w3j7f"]
-size = Vector3(200, 1, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mw5a"]
 albedo_color = Color(0.489622, 0.489622, 0.489622, 1)
@@ -47,6 +45,18 @@ grow_amount = 0.065
 [sub_resource type="PlaneMesh" id="PlaneMesh_0pidq"]
 material = SubResource("StandardMaterial3D_7mw5a")
 size = Vector2(500, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w3j7f"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5dgd"]
+albedo_texture = ExtResource("5_kqvf8")
+uv1_scale = Vector3(2, 2, 2)
+uv1_offset = Vector3(0.655, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m8we4"]
+material = SubResource("StandardMaterial3D_e5dgd")
+size = Vector3(100, 1, 100)
 
 [node name="Battle" type="Node3D"]
 
@@ -211,27 +221,32 @@ text = "VS. Player 2"
 metadata/_edit_group_ = true
 
 [node name="StadiumMeshBorder" type="MeshInstance3D" parent="Stadium"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 mesh = SubResource("CylinderMesh_xc2o3")
 
 [node name="StadiumMesh" type="MeshInstance3D" parent="Stadium"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.99, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 mesh = SubResource("CylinderMesh_0sr7i")
 
 [node name="StadiumCollision" type="CollisionShape3D" parent="Stadium"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 shape = SubResource("CylinderShape3D_usxev")
 
+[node name="FloorMesh" type="MeshInstance3D" parent="Stadium"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+mesh = SubResource("PlaneMesh_0pidq")
+
 [node name="FloorCollision" type="CollisionShape3D" parent="Stadium"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
 shape = SubResource("BoxShape3D_w3j7f")
 
-[node name="FloorMesh" type="MeshInstance3D" parent="Stadium/FloorCollision"]
-mesh = SubResource("PlaneMesh_0pidq")
-skeleton = NodePath("../..")
+[node name="CardboardMesh" type="MeshInstance3D" parent="Stadium"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, -8, -6.795)
+mesh = SubResource("BoxMesh_m8we4")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.365336, 0.872399, -0.324731, -0.544227, 0.483187, 0.685818, 0.755212, -0.0738271, 0.651309, -38.883, 11.315, 21.394)
+transform = Transform3D(0.365336, 0.872399, -0.32473, -0.544227, 0.483187, 0.685818, 0.755213, -0.0738273, 0.651309, 0.66016, 81.0408, 35.6167)
+visible = false
 shadow_enabled = true
 shadow_opacity = 0.71
 shadow_blur = 8.144
@@ -243,17 +258,25 @@ fov = 32.0
 size = 52.783
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9765, 3.61053, 9.05125)
-light_color = Color(0.813504, 0.849558, 0.783671, 1)
-light_energy = 0.2
-omni_range = 52.856
-omni_attenuation = -0.451
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.1852, 20.6356)
+light_color = Color(0.84, 0.7994, 0.5964, 1)
+light_energy = 0.285
+light_specular = 0.3
+shadow_enabled = true
+shadow_bias = 0.223
+shadow_normal_bias = 0.0
+shadow_blur = 10.0
+distance_fade_begin = 5.0
+distance_fade_length = 2.0
+omni_range = 119.36
+omni_attenuation = -0.425
 
 [node name="Players" type="Node3D" parent="."]
 
 [node name="Player 1" parent="Players" instance=ExtResource("1_rnlff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2.6, -18)
 max_speed = 50.0
+is_ai_controlled = true
 
 [node name="Player 2" parent="Players" instance=ExtResource("1_rnlff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2.6, 18)

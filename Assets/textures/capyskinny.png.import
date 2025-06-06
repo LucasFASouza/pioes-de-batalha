@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci84wque8g82j"
-path.s3tc="res://.godot/imported/fabric.jpg-327f3900e3d78f7c544a885165012a2e.s3tc.ctex"
+uid="uid://d3htugrodfot0"
+path.s3tc="res://.godot/imported/capyskinny.png-ace67d3061687fa2967c244ac092d928.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/fabric.jpg"
-dest_files=["res://.godot/imported/fabric.jpg-327f3900e3d78f7c544a885165012a2e.s3tc.ctex"]
+source_file="res://Assets/textures/capyskinny.png"
+dest_files=["res://.godot/imported/capyskinny.png-ace67d3061687fa2967c244ac092d928.s3tc.ctex"]
 
 [params]
 

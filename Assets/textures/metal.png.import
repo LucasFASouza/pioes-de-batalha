@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmbffh6hwct2o"
-path.s3tc="res://.godot/imported/capy.png-2d9d9c71ec083a814f5d8f7334679739.s3tc.ctex"
+uid="uid://bvf7h513kaiw6"
+path.s3tc="res://.godot/imported/metal.png-8bb351e220b30454fe7be1330c83727d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/capy.png"
-dest_files=["res://.godot/imported/capy.png-2d9d9c71ec083a814f5d8f7334679739.s3tc.ctex"]
+source_file="res://Assets/textures/metal.png"
+dest_files=["res://.godot/imported/metal.png-8bb351e220b30454fe7be1330c83727d.s3tc.ctex"]
 
 [params]
 

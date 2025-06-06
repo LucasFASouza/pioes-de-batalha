@@ -20,10 +20,10 @@ scale_curve = SubResource("CurveTexture_v0j2i")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gtug"]
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.997561, 0.5449, 0, 1)
+albedo_color = Color(0.960784, 0.705882, 0, 1)
 emission_enabled = true
-emission = Color(0.996078, 0.545098, 0, 1)
-emission_energy_multiplier = 2.0
+emission = Color(0.914956, 0.522264, 9.62615e-07, 1)
+emission_energy_multiplier = 1.93
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_em56x"]
 material = SubResource("StandardMaterial3D_1gtug")
@@ -35,9 +35,10 @@ height = 1.6
 script = ExtResource("1_gxw2k")
 
 [node name="Debris" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.03862, 0)
+emitting = false
 amount = 16
-lifetime = 0.5
+lifetime = 0.35
+one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_2g367")
@@ -45,3 +46,8 @@ draw_pass_1 = SubResource("CylinderMesh_em56x")
 
 [node name="ExplosionSouns" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_edjo3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.96, 0.704, 0, 1)
+light_energy = 4.0
+omni_range = 8.0
