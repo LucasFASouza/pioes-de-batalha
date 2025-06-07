@@ -77,6 +77,9 @@ func _ready() -> void:
 	if pause_menu:
 		pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	
+	# Ensure battle manager can process when paused (to handle ESC key)
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	# Start the battle
 	start_countdown()
 
