@@ -79,11 +79,6 @@ func _ready() -> void:
 		ai_controller.set_personality(ai_personality)
 		label_3d.text = "CPU"
 
-	
-	var game_manager = get_tree().current_scene.get_node("GameManager")
-	if game_manager and game_manager.has_method("register_player"):
-		game_manager.register_player(self)
-
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -91,8 +86,8 @@ func _physics_process(delta: float) -> void:
 
 	gfx.rotate_y(deg_to_rad(spin_speed * delta))
 
-	var game_manager = get_tree().current_scene.get_node("GameManager")
-	var can_move = game_manager and game_manager.is_game_playing()
+	var battle_manager = get_tree().current_scene.get_node("BattleManager")
+	var can_move = battle_manager and battle_manager.is_game_playing()
 
 	if collision_stun_time > 0:
 		collision_stun_time -= delta
@@ -164,25 +159,25 @@ func _on_shield_finished() -> void:
 
 
 func get_dash_status() -> String:
-	if is_dashing:
-		return "USING"
-	elif not dash_cooldown_timer.is_stopped():
-		return "COOLDOWN " + str(ceil(dash_cooldown_timer.time_left)) + "s"
+	if dash_cooldown_timer.time_left > 0:
+		return "%.1fs" % dash_cooldown_timer.time_left
+	elif is_dashing:
+		return "DASHING"
 	else:
-		return "READY"
+		return "Ready"
 
 
 func get_shield_status() -> String:
-	if is_shielding:
-		return "USING"
-	elif not shield_cooldown_timer.is_stopped():
-		return "COOLDOWN " + str(ceil(shield_cooldown_timer.time_left)) + "s"
+	if shield_cooldown_timer.time_left > 0:
+		return "%.1fs" % shield_cooldown_timer.time_left
+	elif is_shielding:
+		return "SHIELDING"
 	else:
-		return "READY"
+		return "Ready"
 
 
 func get_stamina_status() -> String:
-	return str(int(current_stamina))
+	return "%.0f/%.0f" % [current_stamina, max_stamina]
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:

@@ -72,7 +72,7 @@ func make_decision() -> void:
 		Personality.RUNNER:
 			decide_runner(distance_to_opponent, my_speed, opponent_speed, can_dash, can_shield)
 
-func decide_aggressive(distance: float, my_speed: float, opponent_speed: float, can_dash: bool, can_shield: bool) -> void:
+func decide_aggressive(distance: float, _my_speed: float, opponent_speed: float, can_dash: bool, can_shield: bool) -> void:
 	# AGGRESSIVE: mostly charging the player, dashing if opponent has no shield, keeping pressure
 	
 	if opponent.is_dashing and can_shield:
@@ -88,7 +88,7 @@ func decide_aggressive(distance: float, my_speed: float, opponent_speed: float, 
 		# Default: charge toward opponent
 		current_state = State.MOVING
 
-func decide_deceiver(distance: float, my_speed: float, opponent_speed: float, can_dash: bool, can_shield: bool) -> void:
+func decide_deceiver(distance: float, _my_speed: float, opponent_speed: float, can_dash: bool, can_shield: bool) -> void:
 	# DECEIVER: last-second movements, bait abilities, always save shield for when player is dashing
 	
 	if opponent.is_dashing and can_shield:
@@ -107,7 +107,7 @@ func decide_deceiver(distance: float, my_speed: float, opponent_speed: float, ca
 		# Circle around opponent, be evasive
 		current_state = State.MOVING
 
-func decide_runner(distance: float, my_speed: float, opponent_speed: float, can_dash: bool, can_shield: bool) -> void:
+func decide_runner(distance: float, my_speed: float, _opponent_speed: float, can_dash: bool, can_shield: bool) -> void:
 	# RUNNER: conserve momentum running across field for big swing, tactical movement
 	
 	if opponent.is_dashing and can_shield and distance < 15.0:
@@ -123,7 +123,7 @@ func decide_runner(distance: float, my_speed: float, opponent_speed: float, can_
 		# Maintain momentum, tactical positioning
 		current_state = State.MOVING
 
-func execute_behavior(delta: float) -> void:
+func execute_behavior(_delta: float) -> void:
 	match current_state:
 		State.MOVING:
 			execute_movement()

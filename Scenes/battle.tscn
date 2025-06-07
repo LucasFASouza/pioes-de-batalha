@@ -1,15 +1,15 @@
 [gd_scene load_steps=17 format=3 uid="uid://2vqcvfh7orwt"]
 
-[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_bl4i6"]
-[ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="1_rnlff"]
-[ext_resource type="Texture2D" uid="uid://k4hcvapt2ai6" path="res://Assets/textures/plastic.png" id="2_b5t5x"]
-[ext_resource type="Texture2D" uid="uid://drm03x7joso11" path="res://Assets/textures/ground.png" id="3_hnrtb"]
-[ext_resource type="Texture2D" uid="uid://brh8e2erbfn2b" path="res://Assets/textures/IDK.png" id="3_oqeyu"]
-[ext_resource type="Texture2D" uid="uid://e81jyga0eunl" path="res://Assets/textures/cardboard.png" id="5_kqvf8"]
+[ext_resource type="Script" path="res://Scripts/battle_manager.gd" id="1_battle_manager"]
+[ext_resource type="PackedScene" uid="uid://b0wcpc4n0ljim" path="res://Scenes/piao.tscn" id="2_piao"]
+[ext_resource type="Texture2D" uid="uid://k4hcvapt2ai6" path="res://Assets/textures/plastic.png" id="3_plastic"]
+[ext_resource type="Texture2D" uid="uid://drm03x7joso11" path="res://Assets/textures/ground.png" id="4_ground"]
+[ext_resource type="Texture2D" uid="uid://brh8e2erbfn2b" path="res://Assets/textures/IDK.png" id="5_idk"]
+[ext_resource type="Texture2D" uid="uid://e81jyga0eunl" path="res://Assets/textures/cardboard.png" id="6_cardboard"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iv7u"]
 albedo_color = Color(0.905882, 0.235294, 0.247059, 1)
-albedo_texture = ExtResource("2_b5t5x")
+albedo_texture = ExtResource("3_plastic")
 uv1_scale = Vector3(4, 0.5, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_xc2o3"]
@@ -22,7 +22,7 @@ radial_segments = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hmtc"]
 albedo_color = Color(0.442911, 0.442911, 0.442911, 1)
-albedo_texture = ExtResource("3_oqeyu")
+albedo_texture = ExtResource("5_idk")
 uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0sr7i"]
@@ -38,7 +38,7 @@ radius = 39.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mw5a"]
 albedo_color = Color(0.489622, 0.489622, 0.489622, 1)
-albedo_texture = ExtResource("3_hnrtb")
+albedo_texture = ExtResource("4_ground")
 uv1_scale = Vector3(4, 4, 4)
 grow_amount = 0.065
 
@@ -50,7 +50,7 @@ size = Vector2(500, 500)
 size = Vector3(200, 1, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5dgd"]
-albedo_texture = ExtResource("5_kqvf8")
+albedo_texture = ExtResource("6_cardboard")
 uv1_scale = Vector3(2, 2, 2)
 uv1_offset = Vector3(0.655, 1, 0)
 
@@ -60,12 +60,12 @@ size = Vector3(100, 1, 100)
 
 [node name="Battle" type="Node3D"]
 
-[node name="GameManager" type="Node3D" parent="."]
-script = ExtResource("1_bl4i6")
+[node name="BattleManager" type="Node3D" parent="."]
+script = ExtResource("1_battle_manager")
 
-[node name="PlayersCanvas" type="CanvasLayer" parent="GameManager"]
+[node name="PlayersHUD" type="CanvasLayer" parent="BattleManager"]
 
-[node name="Player1HUD" type="VBoxContainer" parent="GameManager/PlayersCanvas"]
+[node name="Player1HUD" type="VBoxContainer" parent="BattleManager/PlayersHUD"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -75,22 +75,22 @@ offset_right = 169.0
 offset_bottom = -30.0
 grow_vertical = 0
 
-[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player1HUD"]
+[node name="StaminaLabel" type="Label" parent="BattleManager/PlayersHUD/Player1HUD"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Stamina: 100"
 
-[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player1HUD"]
+[node name="DashLabel" type="Label" parent="BattleManager/PlayersHUD/Player1HUD"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Dash: 10"
+text = "Dash: Ready"
 
-[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player1HUD"]
+[node name="ShieldLabel" type="Label" parent="BattleManager/PlayersHUD/Player1HUD"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Shield: 10"
+text = "Shield: Ready"
 
-[node name="Player2HUD" type="VBoxContainer" parent="GameManager/PlayersCanvas"]
+[node name="Player2HUD" type="VBoxContainer" parent="BattleManager/PlayersHUD"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -103,24 +103,32 @@ offset_bottom = -32.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="StaminaLabel" type="Label" parent="GameManager/PlayersCanvas/Player2HUD"]
+[node name="StaminaLabel" type="Label" parent="BattleManager/PlayersHUD/Player2HUD"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Stamina: 100"
 
-[node name="DashLabel" type="Label" parent="GameManager/PlayersCanvas/Player2HUD"]
+[node name="DashLabel" type="Label" parent="BattleManager/PlayersHUD/Player2HUD"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Dash: 10"
+text = "Dash: Ready"
 
-[node name="ShieldLabel" type="Label" parent="GameManager/PlayersCanvas/Player2HUD"]
+[node name="ShieldLabel" type="Label" parent="BattleManager/PlayersHUD/Player2HUD"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Shield: 10"
+text = "Shield: Ready"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="GameManager"]
+[node name="UI" type="CanvasLayer" parent="BattleManager"]
 
-[node name="WinnerLabel" type="Label" parent="GameManager/CanvasLayer"]
+[node name="PauseButton" type="Button" parent="BattleManager/UI"]
+offset_left = 32.0
+offset_top = 34.0
+offset_right = 122.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 18
+text = "PAUSAR"
+
+[node name="WinnerLabel" type="Label" parent="BattleManager/UI"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -129,12 +137,11 @@ offset_top = 126.0
 offset_right = 177.0
 offset_bottom = 176.0
 grow_horizontal = 2
-size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 36
 text = "JOGADOR N VENCEU"
 horizontal_alignment = 1
 
-[node name="PointsLabel" type="Label" parent="GameManager/CanvasLayer"]
+[node name="PointsLabel" type="Label" parent="BattleManager/UI"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -145,23 +152,9 @@ offset_bottom = 94.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 48
 text = "0-0"
+horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="GameManager/CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -81.0
-offset_top = -20.0
-offset_right = 81.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 23
-text = "Play Again?"
-
-[node name="CountdownLabel" type="Label" parent="GameManager/CanvasLayer"]
+[node name="CountdownLabel" type="Label" parent="BattleManager/UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -174,48 +167,89 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 36
-text = "3 2 1 GO etc"
+text = "3 2 1 GO"
 horizontal_alignment = 1
 
-[node name="VSSelectionCanvas" type="CanvasLayer" parent="GameManager"]
+[node name="PlayAgainButton" type="Button" parent="BattleManager/UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = 20.0
+offset_right = 81.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Jogar Novamente"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameManager/VSSelectionCanvas"]
+[node name="BackButton" type="Button" parent="BattleManager/UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = 70.0
+offset_right = 81.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Menu Principal"
+
+[node name="PauseMenu" type="Control" parent="BattleManager/UI"]
+process_mode = 3
+visible = false
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 333.0
-offset_top = 250.0
-offset_right = -341.0
-offset_bottom = -215.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+[node name="PauseBackground" type="ColorRect" parent="BattleManager/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="PauseCenterContainer" type="CenterContainer" parent="BattleManager/UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseVBoxContainer" type="VBoxContainer" parent="BattleManager/UI/PauseMenu/PauseCenterContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Selecione o Modo VS:"
+theme_override_constants/separation = 20
+
+[node name="PauseTitleLabel" type="Label" parent="BattleManager/UI/PauseMenu/PauseCenterContainer/PauseVBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "PAUSADO"
 horizontal_alignment = 1
 
-[node name="VSBasicButton" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+[node name="PauseButtonsContainer" type="VBoxContainer" parent="BattleManager/UI/PauseMenu/PauseCenterContainer/PauseVBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "VS. Basic CPU"
+theme_override_constants/separation = 12
 
-[node name="VSAggressiveButton" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="BattleManager/UI/PauseMenu/PauseCenterContainer/PauseVBoxContainer/PauseButtonsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "VS. Agressive CPU"
+text = "CONTINUAR"
 
-[node name="VSDeceiverButton" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="BattleManager/UI/PauseMenu/PauseCenterContainer/PauseVBoxContainer/PauseButtonsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "VS. Deceiver CPU"
-
-[node name="VSP2Button" type="Button" parent="GameManager/VSSelectionCanvas/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "VS. Player 2"
+text = "MENU PRINCIPAL"
 
 [node name="Stadium" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
@@ -244,19 +278,6 @@ shape = SubResource("BoxShape3D_w3j7f")
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, -8, -6.795)
 mesh = SubResource("BoxMesh_m8we4")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.365336, 0.872399, -0.32473, -0.544227, 0.483187, 0.685818, 0.755213, -0.0738273, 0.651309, 0.66016, 81.0408, 35.6167)
-visible = false
-shadow_enabled = true
-shadow_opacity = 0.71
-shadow_blur = 8.144
-sky_mode = 1
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 44.405, 91.11)
-fov = 32.0
-size = 52.783
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.1852, 20.6356)
 light_color = Color(0.84, 0.7994, 0.5964, 1)
@@ -273,18 +294,22 @@ omni_attenuation = -0.425
 
 [node name="Players" type="Node3D" parent="."]
 
-[node name="Player 1" parent="Players" instance=ExtResource("1_rnlff")]
+[node name="Player 1" parent="Players" instance=ExtResource("2_piao")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 2.6, -18)
 max_speed = 50.0
-is_ai_controlled = true
 
-[node name="Player 2" parent="Players" instance=ExtResource("1_rnlff")]
+[node name="Player 2" parent="Players" instance=ExtResource("2_piao")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 2.6, 18)
 max_speed = 50.0
 player_number = "2"
 
-[connection signal="pressed" from="GameManager/CanvasLayer/Button" to="GameManager" method="_on_play_again_pressed"]
-[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSBasicButton" to="GameManager" method="_on_vs_basic_pressed"]
-[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSAggressiveButton" to="GameManager" method="_on_vs_aggressive_pressed"]
-[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSDeceiverButton" to="GameManager" method="_on_vs_deceiver_pressed"]
-[connection signal="pressed" from="GameManager/VSSelectionCanvas/VBoxContainer/VSP2Button" to="GameManager" method="_on_vs_p2_pressed"]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 44.405, 91.11)
+fov = 32.0
+size = 52.783
+
+[connection signal="pressed" from="BattleManager/UI/PauseButton" to="BattleManager" method="_on_pause_pressed"]
+[connection signal="pressed" from="BattleManager/UI/PlayAgainButton" to="BattleManager" method="_on_play_again_pressed"]
+[connection signal="pressed" from="BattleManager/UI/BackButton" to="BattleManager" method="_on_back_to_menu_pressed"]
+[connection signal="pressed" from="BattleManager/UI/PauseMenu/PauseCenterContainer/PauseVBoxContainer/PauseButtonsContainer/ResumeButton" to="BattleManager" method="_on_resume_pressed"]
+[connection signal="pressed" from="BattleManager/UI/PauseMenu/PauseCenterContainer/PauseVBoxContainer/PauseButtonsContainer/MainMenuButton" to="BattleManager" method="_on_pause_main_menu_pressed"]

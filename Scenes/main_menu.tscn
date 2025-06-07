@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://5w8vqsdk5wng"]
+[gd_scene load_steps=2 format=3 uid="uid://bg7h8dqkv6rnt"]
 
-[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_5xu57"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_main_menu"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,43 +9,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5xu57")
+script = ExtResource("1_main_menu")
 
-[node name="InitialContainer" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
+[node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -134.0
-offset_top = -64.0
-offset_right = 134.0
-offset_bottom = 64.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 40
+color = Color(0.1, 0.1, 0.15, 1)
 
-[node name="Label" type="Label" parent="InitialContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 31
-text = "Piões de Batalha"
-horizontal_alignment = 1
-
-[node name="GameTypeButtons" type="VBoxContainer" parent="InitialContainer"]
-layout_mode = 2
-
-[node name="VsCPUButton" type="Button" parent="InitialContainer/GameTypeButtons"]
-layout_mode = 2
-text = "P1 vs CPU"
-
-[node name="VsP2Button" type="Button" parent="InitialContainer/GameTypeButtons"]
-layout_mode = 2
-text = "P1 vs P2"
-
-[node name="SelectionContainer" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
+[node name="MainScreen" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,30 +28,141 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackInitialButton" type="Button" parent="SelectionContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-text = "Back"
+[node name="CenterContainer" type="CenterContainer" parent="MainScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="P1Container" type="VBoxContainer" parent="SelectionContainer"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScreen/CenterContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="SelectionContainer/P1Container"]
+[node name="TitleLabel" type="Label" parent="MainScreen/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Player 1"
+theme_override_font_sizes/font_size = 48
+text = "Piões de Batalha"
 horizontal_alignment = 1
 
-[node name="P2Container" type="VBoxContainer" parent="SelectionContainer"]
+[node name="ButtonsContainer" type="VBoxContainer" parent="MainScreen/CenterContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="SelectionContainer/P2Container"]
+[node name="PlayButton" type="Button" parent="MainScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
 layout_mode = 2
-text = "Player 2"
+theme_override_font_sizes/font_size = 24
+text = "JOGAR"
+
+[node name="QuitButton" type="Button" parent="MainScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SAIR"
+
+[node name="PlayScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayScreen/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="PlayScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Modo de Jogo"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="InitialContainer/GameTypeButtons/VsCPUButton" to="." method="_on_vs_cpu_button_pressed"]
-[connection signal="pressed" from="SelectionContainer/BackInitialButton" to="." method="_on_back_initial_button_pressed"]
+[node name="ButtonsContainer" type="VBoxContainer" parent="PlayScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VSPlayer2Button" type="Button" parent="PlayScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "VS. Player 2"
+
+[node name="VSCPUButton" type="Button" parent="PlayScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "VS. CPU"
+
+[node name="PlayBackButton" type="Button" parent="PlayScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Voltar"
+
+[node name="CPUScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="CPUScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CPUScreen/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="CPUScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Escolha o CPU"
+horizontal_alignment = 1
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="CPUScreen/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BasicButton" type="Button" parent="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Básico"
+
+[node name="AggressiveButton" type="Button" parent="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Agressivo"
+
+[node name="DeceiverButton" type="Button" parent="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Enganador"
+
+[node name="CPUBackButton" type="Button" parent="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Voltar"
+
+[connection signal="pressed" from="MainScreen/CenterContainer/VBoxContainer/ButtonsContainer/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainScreen/CenterContainer/VBoxContainer/ButtonsContainer/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="PlayScreen/CenterContainer/VBoxContainer/ButtonsContainer/VSPlayer2Button" to="." method="_on_vs_player2_pressed"]
+[connection signal="pressed" from="PlayScreen/CenterContainer/VBoxContainer/ButtonsContainer/VSCPUButton" to="." method="_on_vs_cpu_pressed"]
+[connection signal="pressed" from="PlayScreen/CenterContainer/VBoxContainer/ButtonsContainer/PlayBackButton" to="." method="_on_play_back_pressed"]
+[connection signal="pressed" from="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer/BasicButton" to="." method="_on_basic_pressed"]
+[connection signal="pressed" from="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer/AggressiveButton" to="." method="_on_aggressive_pressed"]
+[connection signal="pressed" from="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer/DeceiverButton" to="." method="_on_deceiver_pressed"]
+[connection signal="pressed" from="CPUScreen/CenterContainer/VBoxContainer/ButtonsContainer/CPUBackButton" to="." method="_on_cpu_back_pressed"]
